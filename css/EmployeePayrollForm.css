@@ -131,3 +131,81 @@ select {
     color: #42515f;
     background-color: transparent;
 }
+
+.buttonParent {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button {
+    font-size: 20px;
+    font-family: Roboto;
+    letter-spacing: 0px;
+    color: #425f42;
+    opacity: 1;
+    background: #a8a8a85b 0% 0% no-repeat padding-box;
+    border: 2px solid #969696;
+    border-radius: 5px;
+    font-weight: 400;
+    min-width: 140px;
+    padding: 7px 7px;
+    border: 1px solid #707070;
+    cursor: pointer;
+}
+
+.submitButton {
+    margin-right: 30px;
+    padding: 8px 18px;
+}
+
+.cancelButton {
+    text-decoration: none;
+    text-align: center;
+    padding: 8px 18px;
+}
+
+.resetButton {
+    padding: 8px 18px;
+}
+
+@media only screen and (max-width: 960px) {
+    .cancelButton {
+        margin-left: 0px;
+    }
+    .form {
+        width: 85%;
+        padding: 44px 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .form {
+        margin-top: 10px;
+    }
+    .row {
+        flex-direction: column;
+    }
+    .uploadButton {
+        justify-content: flex-start;
+    }
+    .profile-radio-content {
+        flex-flow: wrap;
+    }
+    .submit-reset {
+        width: 100%;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .submitButton {
+        margin: 0;
+    }
+    .button-content {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+}
