@@ -24,7 +24,6 @@ createInnerHtml = () => {
     </tr>
     `;
     let innerHtml = `${headerHtml}`;
-   
     for(const empPayrollData of empPayrollList){
         innerHtml = `${innerHtml}
             <tr>
@@ -47,61 +46,6 @@ createInnerHtml = () => {
     document.querySelector("#table-display").innerHTML = innerHtml;
 }
 
-const createEmployeePayrollJSON = () => {
-    let empPayrollListLocal = [
-        {
-          "_name": "Naveen",
-          "_gender": "Male",
-          "_department": [
-            "Finance",
-            "Engineering"
-          ],
-          "_salary": "40000",
-          "_startDate": "2 Nov 2020",
-          "_notes": "",
-          "_id": new Date().getTime(),
-          "_profileImage": "../assets/profile-images/Ellipse -2.png"
-        },
-        {
-          "_name": "Kumar",
-          "_gender": "Male",
-          "_department": [
-            "HR"
-          ],
-          "_salary": "70000",
-          "_startDate": "1 July 2019",
-          "_notes": "",
-          "_id": new Date().getTime(),
-          "_profileImage": "../assets/profile-images/Ellipse -3.png"
-        },
-        {
-          "_name": "Raji",
-          "_gender": "Female",
-          "_department": [
-            "HR",
-            "Testing"
-          ],
-          "_salary": "20000",
-          "_startDate": "23 Oct 2020",
-          "_notes": "",
-          "_id": new Date().getTime(),
-          "_profileImage": "../assets/profile-images/Ellipse -4.png"
-        },
-        {
-          "_name": "test",
-          "_gender": "Female",
-          "_department": [
-            "Development"
-          ],
-          "_salary": "30000",
-          "_startDate": "17 Jan 2016",
-          "_notes": "",
-          "_id": new Date().getTime(),
-          "_profileImage": "../assets/profile-images/Ellipse 1.png"
-        }
-    ];
-    return empPayrollListLocal;
-}
 
 const getDeptHtml = (deptList) => {
     let deptHtml ='';
@@ -109,4 +53,23 @@ const getDeptHtml = (deptList) => {
         deptHtml = `${deptHtml} <div class='dept-label'>${dept}</div>`
     }
     return deptHtml;
+}
+
+const remove = (node) => {
+  let empPayrollData = empPayrollList.find(empData => empData._id == node.id);
+  if(!empPayrollData) return;
+  const index = empPayrollList
+                .map(empData => empData._id)
+                .indexOf(empPayrollData._id);
+  empPayrollList.splice(index, 1);
+  localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
+  document.querySelector(".emp-count").textContent = empPayrollList.length;
+  createInnerHtml();
+}
+
+const update = (node) => {
+  let empPayrollData = empPayrollList.find(empData => empData._id == node.id)
+  if(!empPayrollData) return;
+  localStorage.setItem('editEmp',JSON.stringify(empPayrollData))
+  window.location.replace(site_properties.add_emp_payroll_page);
 }

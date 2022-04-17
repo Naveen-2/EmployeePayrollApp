@@ -1,3 +1,6 @@
+let isUpdate = false;
+let employeePayrollObj = {};
+
 window.addEventListener('DOMContentLoaded', (event) => {
     const name = document.querySelector('#name');
     const nameError = document.querySelector('.text-error');
@@ -40,6 +43,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
             dateError.textContent = e;
         }
     }
+
+    checkForUpdate();
 });
 
 const save = () => {
@@ -115,10 +120,36 @@ const resetForm = () => {
     setValue('#notes', '');
 }
 
+const setForm = () => {
+    setValue('#name', employeePayrollObj._name);
+    setSelectedValues('[name=profile]', employeePayrollObj._profilePic);
+    setSelectedValues('[name=gender]', employeePayrollObj._gender);
+    setSelectedValues('[name=department]', employeePayrollObj._department);
+    setValue('#salary', employeePayrollObj._salary);
+    setTextValue('.salary-output', employeePayrollObj._salary);
+    setValue('#notes', employeePayrollObj._note);
+    let date = stringifyDate(employeePayrollObj._startDate).split(" ");
+    setValue('#day', '1');
+    setValue('#month', 'January');
+    setValue('#year', '2021');
+}
+
 const unsetSelectedValues = (propertyValue) => {
     let allItems = document.querySelectorAll(propertyValue);
     allItems.forEach(item => {
         item.checked = false;
+    });
+}
+
+const setSelectedValues = (propertyValue, value) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        if(Array.isArray(value)){
+            if(value.includes(item.value)){
+                item.checked = true;
+            }
+        } else if (item.value === value)
+        item.checked = true;
     });
 }
 
@@ -130,4 +161,12 @@ const setTextValue = (id, value) => {
 const setValue = (id, value) => {
     const element = document.querySelector(id);
     element.value = value;
+}
+
+const checkForUpdate = () => {
+    const employeePayrollJson = localStorage.getItem('editEmp');
+    isUpdate = employeePayrollJson ? true : false;
+    if (!isUpdate) return;
+    employeePayrollObj = JSON.parse(employeePayrollJson);
+    setForm();
 }
